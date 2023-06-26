@@ -9,11 +9,10 @@ export default function Members () {
             <Box className='App'
                     style={{
                         transform: "scale(1)",
-                        
                       }}
                 >
                     <React.StrictMode>
-                        <img src={require("./img/animlogo.gif")}></img>
+                        <img src={require("./img/animlogo.png")}></img>
                     </React.StrictMode>
             </Box>
             <Box display='flex' justifyContent='center'>

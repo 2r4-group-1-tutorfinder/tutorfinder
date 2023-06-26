@@ -6,10 +6,11 @@ import { getDocs, collection, addDoc } from 'firebase/firestore'
 import React from 'react';
 import { Box, Button, TextField, Typography } from "@mui/material";
 
-export default function Appoint() {
+export default function Apply() {
+    const [applicants, setApplication] = useState([])
     const [value, onChange] = useState(new Date());
 
-    const collectionRead = collection(db, "schedules")
+    const collectionRead = collection(db, "applicants")
 
     const { user, logout } = UserAuth();
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function Appoint() {
         try {
             await logout()
             navigate('/')
-            console.loh('Logged out!')
+            console.loh('Sent!')
         } catch (e) {
             console.log(e.message);
         }
@@ -31,15 +32,17 @@ export default function Appoint() {
       navigate('/findtutors')
     }
 
-    const [newScheduleSubject, setNewScheduleSubject] = useState("")
-    const [newScheduleNumber, setNewScheduleNumber] = useState("")
-    const [newScheduleDate, setNewScheduleDate] = useState("")
-    const [newScheduleTime, setNewScheduleTime] = useState("")
-    const [newScheduleTutorName, setNewScheduleTutorName] = useState("")
+    const [newEmail, setEmail] = useState("")
+    const [newFirstname, setFirstname] = useState("")
+    const [newLastname, setLastname] = useState("")
+    const [newMiddlename, setMiddlename] = useState("")
+    const [newNo, setNo] = useState("")
+    const [newSchoolAffiliation, setSchoolAffiliation] = useState("")
+    const [newSubject, setSubject] = useState("")
 
-    const onSubmitSchedule = async () => {
+    const onSubmitApply = async () => {
         try {
-        await addDoc(collectionRead, {Subject: newScheduleSubject, Phone_Number: newScheduleNumber, Date: newScheduleDate, Time: newScheduleTime, Tutor: newScheduleTutorName})
+    await addDoc(collectionRead, {Email: newEmail, Firstname: newFirstname, Lastname: newLastname, Middlename: newMiddlename, No: newNo, School_Affiliation: newSchoolAffiliation, Subject: newSubject})
         navigate('/')
         } catch (err) {
             console.error(err);
@@ -133,9 +136,10 @@ export default function Appoint() {
             sx={{
               }}  
             >
-                <h1>Set an Appointment</h1>
+                <h1>Personal Details</h1>
             </Box>
-            <Box display='flex' className='App' justifyContent='center'>
+            <Box display='flex' className='App' justifyContent='center'
+            >
                 <div className='App' id='sign-group'>
                     <Box 
                         sx={{
@@ -143,22 +147,28 @@ export default function Appoint() {
                           }}
                     >
                         <div className='flex flex-col py-2'>
-                            <TextField onChange={(e) => setNewScheduleSubject(e.target.value)} fullWidth='true' margin='dense' label='Subject' variant='outlined' className='border p-3'/>
+                            <TextField onChange={(e) => setEmail(e.target.value)} fullWidth='true' margin='dense' label='Emai Address' variant='outlined' className='border p-3'/>
                         </div>
                         <div className='flex flex-col py-2'>
-                            <TextField onChange={(e) => setNewScheduleNumber(e.target.value)} fullWidth='true' margin='dense' label='Contact Number' variant='outlined' className='border p-3'/> 
+                            <TextField onChange={(e) => setFirstname(e.target.value)} fullWidth='true' margin='dense' label='First Name' variant='outlined' className='border p-3'/> 
                         </div>
                         <div className='flex flex-col py-2'>
-                            <TextField onChange={(e) => setNewScheduleDate(e.target.value)} fullWidth='true' margin='dense' label='Date' variant='outlined' className='border p-3'/>
+                            <TextField onChange={(e) => setMiddlename(e.target.value)} fullWidth='true' margin='dense' label='Middle Initial' variant='outlined' className='border p-3'/>
                         </div>
                         <div className='flex flex-col py-2'>
-                            <TextField onChange={(e) => setNewScheduleTime(e.target.value)} fullWidth='true' margin='dense' label='Time' variant='outlined' className='border p-3'/> 
+                            <TextField onChange={(e) => setLastname(e.target.value)} fullWidth='true' margin='dense' label='Last Name' variant='outlined' className='border p-3'/> 
                         </div>
                         <div className='flex flex-col py-2'>
-                            <TextField onChange={(e) => setNewScheduleTutorName(e.target.value)} fullWidth='true' margin='dense' label='Tutor Name' variant='outlined' className='border p-3'/> 
+                            <TextField onChange={(e) => setNo(e.target.value)} fullWidth='true' margin='dense' label='Contact Number' variant='outlined' className='border p-3'/> 
                         </div>
-                            <p></p>
-                            <Button onClick={onSubmitSchedule} color="error" variant="contained" >Submit Schedule</Button>
+                        <div className='flex flex-col py-2'>
+                            <TextField onChange={(e) => setSchoolAffiliation(e.target.value)} fullWidth='true' margin='dense' label='School Affiliated' variant='outlined' className='border p-3'/> 
+                        </div>
+                        <div className='flex flex-col py-2'>
+                            <TextField onChange={(e) => setSubject(e.target.value)} fullWidth='true' margin='dense' label='Subject' variant='outlined' className='border p-3'/> 
+                        </div>
+                        <p></p>
+                        <Button onClick={onSubmitApply} color="error" variant="contained" >Submit Application</Button>
                     </Box>
                 </div>
             </Box>

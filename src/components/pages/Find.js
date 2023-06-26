@@ -28,6 +28,14 @@ export default function Find () {
     navigate('/appoint')
   }
 
+  const navigateToHome = () => {
+      navigate('/')
+    }
+
+  const navigateToFind = () => {
+    navigate('/findtutors')
+  }
+
   useEffect(()=>{
     axios.get("https://my-json-server.typicode.com/chavesjayemerald/forkedjsonserver/tutor")
     .then((response)=>{setNameList(response.data)})
@@ -50,40 +58,67 @@ export default function Find () {
             <Box container alignContent='center' display='flex' flexDirection='row' justifyContent='right' alignItems='center'
                 sx={{
                     boxShadow: 1,
-
+                    height: 120,
                   }}      
             >
-                <Box
-            sx={{
-              }}  
-            >
-                <h1>TUTOR FINDER</h1>
-            </Box>
             <ul><h1></h1></ul>
+            <Box
+                    sx={{
+                      width:'100%',
+                      }}
+                >
+                    <React.StrictMode>
+                        <img width={300} src={require("./img/animlogo.png")}></img>
+                    </React.StrictMode>
+                </Box>
                 <Box
                 sx={{
-                    minWidth: 100,
-                    pl: 0.7,
-                    marginLeft: 3,
+                    width:100,
                   }}
                 >
-                    <Link to='/'><Typography variant='inherit' color='#b2102f'>HOME</Typography></Link>
+                    
+                    <div>
+                        <Button variant='outlined' color='error' onClick={navigateToHome} className='border px-6 py-2 my-4'
+                            sx={{
+                                width:150,
+                                height:65,
+                                borderRadius: 10,
+                              }}
+                        >Home</Button>
+                    </div>
                 </Box>
                 <Box
                 sx={{
                     p: 2,
-                    marginRight: 6,
+                    width:145,
                   }}
                 >
-                    <Link to='/findtutors'><Typography variant='inherit' color='#b2102f'>SEARCH</Typography></Link>
+                    <div>
+                        <Button variant='outlined' color='error' onClick={navigateToFind} className='border px-6 py-2 my-4'
+                            sx={{
+                                ml:10,
+                                mr:10,
+                                width:150,
+                                height:65,
+                                borderRadius: 10,
+                              }}
+                        >Find Tutor</Button>
+                    </div>
                 </Box>
                 <Box
                 sx={{
-                    marginRight: 2,
+                    marginRight: 6,
                   }}
                 >
                     <div colorclassName=''>
-                        <Button variant='contained' color='error' onClick={handleLogout} className='border px-6 py-2 my-4'>Logout</Button>
+                        <Button variant='contained' color='error' onClick={handleLogout} className='border px-6 py-2 my-4'
+                            sx={{
+                                ml:14,
+                                width:150,
+                                height:65,
+                                borderRadius: 10,
+                              }}
+                        >Logout</Button>
                     </div>
                 </Box>
             </Box>
@@ -91,7 +126,7 @@ export default function Find () {
             sx={{
                 bgcolor: '#D32F2F',
                 boxShadow: 1,
-                pr: 2.1,
+                pr: 7,
               }}
             >
                 <div>      
@@ -101,11 +136,26 @@ export default function Find () {
         </Box>
         <Box>
             <div className="App">
-              <h1>Search A Subject</h1>
-              <TextField type="text" placeholder="Search a subject..." onChange={(e)=>setSearch(e.target.value)}/>
+              <Box
+                sx={{
+                  marginTop: 5,
+                  marginBottom: 3,
+                  }}
+              >
+                <Typography color='black' variant='h3'>Search for a Subject</Typography>
+              </Box>
+              <Box>
+              <TextField type="text" placeholder="Search a subject..." onChange={(e)=>setSearch(e.target.value)} 
+                sx={{
+                  marginTop: 3,
+                  width: 700,
+                  marginBottom: 3,
+                  }}
+                  />
+              </Box>
               {nameList.filter((item)=>{
                 if(search===""){
-                
+                  return item
                 }
 
                 else if(item.Subject.toLowerCase().includes(search.toLowerCase())){
@@ -113,29 +163,60 @@ export default function Find () {
                 }
               })
               .map((item)=>{
-                return <div 
+                return <Box display='flex' justifyContent='center' flexDirection='row'><div 
                     className="nameContainer" 
                     key={item.Subject}>
-                    <h2>{item.Firstname} {item.Middlename} {item.Lastname}</h2>
-                    <div>
-                        <div>
-                            <FormLabel>Subject: {item.Subject}</FormLabel>
-                        </div>
-                        <div>
-                            <FormLabel>Email Address: {item.Email}</FormLabel>
-                        </div>
-                        <div>
-                            <FormLabel>Contact Number: {item.No}</FormLabel>
-                        </div>
-                        <div>
-                            <FormLabel>School Affiliated: {item.School_Affiliation}</FormLabel>
-                        </div>
-                        <div>
-                            <Button onClick={navigateToAppoint} variant='contained' color='error'>Appoint</Button>
-                        </div>
-
+                    <Box display='flex' justifyContent='center' flexDirection='row'>
+                      <Box
+                        sx={{
+                          marginTop: 3,
+                          boxShadow: 2,
+                          borderRadius: 4,
+                          width: 800,
+                          height: 300,
+                        }}
+                      
+                      >
+                            <Box
+                              sx={{
+                                boxShadow: 1,
+                                borderRadius: 4,
+                                pt:0.1,
+                                pb:0.2,
+                                borderBottomLeftRadius: 0,
+                                borderBottomRightRadius: 0,
+                              }}
+                            >
+                            <Typography color='#D32F2F' variant='h2'>{item.Subject}</Typography>
+                            </Box>
+                            <Box
+                              sx={{
+                                marginTop:2,
+                              }}
+                            >
+                              <div>
+                                  <Typography variant='h4'>Tutor Name: {item.Firstname} {item.Middlename} {item.Lastname}</Typography>
+                              </div>
+                              <div>
+                                  <Typography variant='h5'>Email Address: {item.Email}</Typography>
+                              </div>
+                              <div>
+                                  <Typography variant='h5'>Contact Number: {item.No}</Typography>
+                              </div>
+                              <div>
+                                  <Typography variant='h5'>School Affiliated: {item.School_Affiliation}</Typography>
+                              </div>
+                              <div>
+                                  <Box>
+                                    <p></p>
+                                    <Button onClick={navigateToAppoint} variant='contained' color='error'>Appoint</Button>
+                                  </Box>
+                              </div>
+                            </Box>
+                      </Box>
+                    </Box>
                     </div>
-                    </div>
+                   </Box>
               })}
             </div>
         </Box>

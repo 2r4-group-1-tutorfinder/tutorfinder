@@ -22,45 +22,81 @@ const Home = () => {
         }
     }
 
+    const navigateToApply = () => {
+        navigate('/apply')
+      }
+
+    const navigateToHome = () => {
+        navigate('/')
+      }
+
+    const navigateToFind = () => {
+        navigate('/findtutors')
+      }
+
+    const navigateToMembers = () => {
+        navigate('/members')
+      }
+    
+
     return (
         <Box class="mui-container-fluid">
+            <Box class="mui-container-fluid">
             <Box container alignContent='center' display='flex' flexDirection='row' justifyContent='right' alignItems='center'
                 sx={{
                     boxShadow: 1,
-
+                    height: 120,
                   }}      
             >
-                <Box
-            sx={{
-              }}  
-            >
-                <h1>TUTOR FINDER</h1>
-            </Box>
             <ul><h1></h1></ul>
                 <Box
                 sx={{
-                    minWidth: 100,
-                    pl: 0.7,
-                    marginLeft: 3,
+                    width:100,
                   }}
                 >
-                    <Link variant='contained' to='/' className='underline'><Typography variant='inherit' color='#b2102f'>HOME</Typography></Link>
+                    
+                    <div>
+                        <Button variant='outlined' color='error' onClick={navigateToHome} className='border px-6 py-2 my-4'
+                            sx={{
+                                width:150,
+                                height:65,
+                                borderRadius: 10,
+                              }}
+                        >Home</Button>
+                    </div>
                 </Box>
                 <Box
                 sx={{
                     p: 2,
-                    marginRight: 6,
+                    width:145,
                   }}
                 >
-                    <Link to='/findtutors'><Typography variant='inherit' color='#b2102f'>SEARCH</Typography></Link>
+                    <div>
+                        <Button variant='outlined' color='error' onClick={navigateToFind} className='border px-6 py-2 my-4'
+                            sx={{
+                                ml:10,
+                                mr:10,
+                                width:150,
+                                height:65,
+                                borderRadius: 10,
+                              }}
+                        >Find Tutor</Button>
+                    </div>
                 </Box>
                 <Box
                 sx={{
-                    marginRight: 2,
+                    marginRight: 6,
                   }}
                 >
                     <div colorclassName=''>
-                        <Button variant='contained' color='error' onClick={handleLogout} className='border px-6 py-2 my-4'>Logout</Button>
+                        <Button variant='contained' color='error' onClick={handleLogout} className='border px-6 py-2 my-4'
+                            sx={{
+                                ml:14,
+                                width:150,
+                                height:65,
+                                borderRadius: 10,
+                              }}
+                        >Logout</Button>
                     </div>
                 </Box>
             </Box>
@@ -68,28 +104,39 @@ const Home = () => {
             sx={{
                 bgcolor: '#D32F2F',
                 boxShadow: 1,
-                pr: 2.1,
+                pr: 7,
               }}
             >
                 <div>      
                     <p><Typography color='#ffffff' variant='poster'>Logged in as {user && user.email}</Typography></p>
                 </div>
             </Box>
+        </Box>
             <Box className="App">
                 <Box 
                     style={{
-                        transform: "scale(1)",
-                        
+                        width:'100%',
                       }}
                 >
                     <React.StrictMode>
-                        <img src={require("./img/animlogo.gif")}></img>
+                        <img src={require("./img/animlogo.png")}></img>
                     </React.StrictMode>
                 </Box>
-                <Box>
-                    <Typography color='#b2102f' variant='h5'>Tutor Finder is a Web Application that allows the user to search for tutors and appoint a schedule for tutor sessions.</Typography>
+                <div>
+                    <h1>Apply now as a Tutor!</h1>
+                    <Button onClick={navigateToApply} variant='contained' color='error'>Apply</Button>
+                </div>
+                <Box 
+                    style={{
+                        marginTop:200,
+                        
+                      }}
+                >
+                    <Typography color='#b2102f' variant='h6'>Tutor Finder is a Web Application that allows the user to search for tutors and appoint a schedule for tutor sessions.</Typography>
                     <Typography color='#b2102f' variant='h8'>Note: This is made from Scratch by Group 1 using many references inlcuding Sir Jomar's recordings.</Typography>
+                
                 </Box>
+                <Button onClick={navigateToMembers} variant='text' color='error'>See the Creators</Button>
             </Box>
         </Box>
         
